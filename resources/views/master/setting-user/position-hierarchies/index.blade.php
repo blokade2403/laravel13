@@ -1,0 +1,4 @@
+@extends('layouts.main')
+@section('content')
+<div class="card"><div class="card-body"><a class="btn btn-primary mb-4" href="{{ route('master.position-hierarchies.create') }}">Tambah Hirarki</a><table class="table"><thead><tr><th>Jabatan</th><th>Atasan</th><th>Unit</th><th>Mulai</th><th></th></tr></thead><tbody>@foreach($hierarchies as $item)<tr><td>{{ $item->position?->nama_jabatan }}</td><td>{{ $item->parentPosition?->nama_jabatan }}</td><td>{{ $item->unit?->nama_unit }}</td><td>{{ $item->tanggal_mulai?->format('Y-m-d') }}</td><td><a href="{{ route('master.position-hierarchies.edit', $item) }}">Edit</a><form class="d-inline" method="POST" action="{{ route('master.position-hierarchies.destroy', $item) }}">@csrf @method('DELETE')<button>Nonaktifkan</button></form></td></tr>@endforeach</tbody></table>{{ $hierarchies->links() }}</div></div>
+@endsection

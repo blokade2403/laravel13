@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('units', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('parent_id')->nullable()->index();
+            $table->string('kode_unit', 50)->unique();
+            $table->string('nama_unit');
+            $table->string('jenis_unit', 50)->nullable();
+            $table->boolean('is_active')->default(true)->index();
+            $table->timestamps();
+            $table->foreign('parent_id')->references('id')->on('units')->nullOnDelete();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('units');
+    }
+};

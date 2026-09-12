@@ -1,0 +1,4 @@
+@extends('layouts.main')
+@section('content')
+<div class="card"><div class="card-body"><a class="btn btn-primary mb-4" href="{{ route('master.position-delegations.create') }}">Tambah Delegasi</a><table class="table"><thead><tr><th>Pemberi</th><th>Penerima</th><th>Mulai</th><th>Selesai</th><th></th></tr></thead><tbody>@foreach($delegations as $item)<tr><td>{{ $item->fromAssignment?->user?->name }}</td><td>{{ $item->toAssignment?->user?->name }}</td><td>{{ $item->tanggal_mulai?->format('Y-m-d') }}</td><td>{{ $item->tanggal_selesai?->format('Y-m-d') }}</td><td><a href="{{ route('master.position-delegations.edit', $item) }}">Edit</a><form class="d-inline" method="POST" action="{{ route('master.position-delegations.destroy', $item) }}">@csrf @method('DELETE')<button>Nonaktifkan</button></form></td></tr>@endforeach</tbody></table>{{ $delegations->links() }}</div></div>
+@endsection
